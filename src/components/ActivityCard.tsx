@@ -6,7 +6,7 @@ import './ActivityCard.css';
 export function ActivityCard() {
   const { data } = useLanyard(config.discordUserId);
 
-  if (!data || config.discordUserId === 'YOUR_DISCORD_USER_ID') return null;
+  if (!data) return null;
 
   const spotify = data.spotify;
   const gameActivity = data.activities?.find((a) => a.type === 0);
