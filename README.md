@@ -49,6 +49,25 @@ Edit `src/utils/config.ts` and set your social URLs.
 
 Add your Discord ID to [Lanyard](https://lanyard.eggsy.xyz/) to enable presence. No API key required.
 
+## Docker
+
+Discord (Lanyard) özelliklerinin çalışması için `VITE_DISCORD_USER_ID` build argümanı gereklidir.
+
+**Docker Compose** (`.env` dosyasından okur):
+
+```bash
+docker compose up --build
+```
+
+**Sadece Docker**:
+
+```bash
+docker build --build-arg VITE_DISCORD_USER_ID=your_discord_id -t my-site .
+docker run -p 3000:80 my-site
+```
+
+Deploy platformunda (Railway, Fly.io, vb.) build argümanını ayarlayın: `VITE_DISCORD_USER_ID=829298395318714409`
+
 ## Scripts
 
 - `npm run dev` — Start dev server
