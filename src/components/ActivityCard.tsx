@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLanyard, type LanyardSpotify } from '../hooks/useLanyard';
 import { config } from '../utils/config';
+import gameIcon from '../icons/game.svg';
 import './ActivityCard.css';
 
 export function ActivityCard() {
@@ -69,12 +70,10 @@ function SpotifyCard({ spotify }: { spotify: LanyardSpotify }) {
 }
 
 function GameCard({ activity }: { activity: { name: string; state?: string; details?: string } }) {
-  const isLeague = activity.name.toLowerCase().includes('league');
-
   return (
     <div className="activity-card">
       <div className="activity-card__header">
-        {isLeague ? <LeagueIcon /> : <GameIcon />}
+        <img src={gameIcon} alt="" width={20} height={20} className="activity-card__game-icon" aria-hidden />
         <span>Playing</span>
       </div>
       <div className="activity-card__body activity-card__body--game">
@@ -95,18 +94,3 @@ function SpotifyIcon() {
   );
 }
 
-function LeagueIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width={20} height={20} fill="currentColor" aria-hidden>
-      <path d="M12.864 0L12.864 0c.063 0 .125.004.188.009l-.188-.009zm0 0c-1.988 0-3.87.46-5.53 1.263l-.001.001c-.166.081-.33.166-.492.254 2.884-.46 5.9-.46 8.782 0-.162-.088-.326-.173-.492-.254C16.734.46 14.852 0 12.864 0zM8.182 2.573c-.163.082-.325.166-.486.252-1.482.82-2.794 1.942-3.87 3.3-.107.136-.21.274-.31.415 1.302-.2 2.66-.3 4.058-.3 1.399 0 2.756.1 4.058.3-.1-.141-.203-.279-.31-.415-1.076-1.358-2.388-2.48-3.87-3.3-.161-.086-.323-.17-.486-.252-.29.072-.575.152-.856.24 1.14.276 2.237.634 3.287 1.068L12 4.5l-.862-.619c1.05-.434 2.147-.792 3.287-1.068-.281-.088-.566-.168-.856-.24zm-5.2 5.485c-.07.12-.138.242-.203.366-1.5 2.593-2.298 5.6-2.298 8.576 0 .084.002.168.005.252 1.22-1.604 2.82-2.954 4.68-3.94-.24-.31-.456-.638-.654-.98-.196-.34-.36-.69-.496-1.05-.136-.36-.24-.73-.31-1.11-.07-.38-.105-.76-.105-1.14 0-.38.035-.76.105-1.14.07-.38.174-.75.31-1.11.136-.36.3-.71.496-1.05.198-.342.414-.67.654-.98-1.86-.986-3.46-2.336-4.68-3.94-.003.084-.005.168-.005.252z" />
-    </svg>
-  );
-}
-
-function GameIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width={20} height={20} fill="currentColor" aria-hidden>
-      <path d="M21.58 16.09l-1.09-7.66A3.996 3.996 0 0 0 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19c0 .55.45 1 1 1h12.12c.55 0 1-.45 1-1 0 1.61 1.19 2.37 1.94 2.91.55.4 1.06.77 1.06 1.09 0 .55-.45 1-1 1H4.94c-1.55 0-2.74-1.37-2.36-2.91l1.09-7.66C3.79 7.46 5.48 6 7.47 6h9.06c2 0 3.68 1.46 3.97 3.43l1.09 7.66c.38 1.54-.81 2.91-2.36 2.91-.55 0-1-.45-1-1 0-.32.51-.69 1.06-1.09.75-.54 1.94-1.3 1.94-2.91z" />
-    </svg>
-  );
-}
