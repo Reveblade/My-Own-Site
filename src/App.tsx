@@ -1,4 +1,5 @@
 import { Background } from './components/Background';
+import { Favicon } from './components/Favicon';
 import { Profile } from './components/Profile';
 import { Socials } from './components/Socials';
 import { Quote } from './components/Quote';
@@ -11,6 +12,7 @@ import './App.css';
 function App() {
   return (
     <>
+      <Favicon />
       <Background />
       <main className="app">
         <Profile />
