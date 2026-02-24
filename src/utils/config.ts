@@ -4,7 +4,7 @@
 
 export const config = {
   /** Discord User ID — required for Lanyard API */
-  discordUserId: import.meta.env.VITE_DISCORD_USER_ID || 'YOUR_DISCORD_USER_ID',
+  discordUserId: '829298395318714409',
 
   /** Social links */
   socials: {

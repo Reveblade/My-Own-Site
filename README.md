@@ -22,17 +22,7 @@ A modern, dark-themed, animated personal website. Static monolith built with Vit
 npm install
 ```
 
-### 2. Configure environment
-
-Create `.env` in project root:
-
-```
-VITE_DISCORD_USER_ID=your_discord_user_id
-```
-
-Get your Discord User ID: [Discord Developer Mode](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-) → Right-click your avatar → Copy User ID.
-
-### 3. Add assets to `/public`
+### 2. Add assets to `/public`
 
 | File | Description |
 |------|-------------|
@@ -41,32 +31,19 @@ Get your Discord User ID: [Discord Developer Mode](https://support.discord.com/h
 | `background.jpg` | Fallback background image |
 | `music.mp3` | Background music track |
 
-### 4. Update social links
+### 3. Update social links
 
 Edit `src/utils/config.ts` and set your social URLs.
 
-### 5. Enable Lanyard (optional)
+### 4. Enable Lanyard (optional)
 
 Add your Discord ID to [Lanyard](https://lanyard.eggsy.xyz/) to enable presence. No API key required.
 
 ## Docker
 
-Discord (Lanyard) özelliklerinin çalışması için `VITE_DISCORD_USER_ID` build argümanı gereklidir.
-
-**Docker Compose** (`.env` dosyasından okur):
-
 ```bash
 docker compose up --build
 ```
-
-**Sadece Docker**:
-
-```bash
-docker build --build-arg VITE_DISCORD_USER_ID=your_discord_id -t my-site .
-docker run -p 3000:80 my-site
-```
-
-Deploy platformunda (Railway, Fly.io, vb.) build argümanını ayarlayın: `VITE_DISCORD_USER_ID=829298395318714409`
 
 ## Scripts
 
