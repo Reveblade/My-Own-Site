@@ -1,0 +1,86 @@
+.activity-card {
+  width: 100%;
+  min-width: 0;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+  backdrop-filter: blur(12px);
+}
+
+.activity-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.activity-card__body {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.activity-card__body--game {
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.activity-card__cover {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+  background: var(--color-surface);
+}
+
+.activity-card__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activity-card__title {
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-card__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-card__progress-wrap {
+  height: 4px;
+  background: var(--color-surface);
+  border-radius: 2px;
+  margin-top: var(--space-sm);
+  overflow: hidden;
+}
+
+.activity-card__progress-bar {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+
+.activity-card__time {
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  margin-top: 4px;
+}

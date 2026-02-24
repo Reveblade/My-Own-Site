@@ -1,0 +1,63 @@
+/* ============================================
+   THEME SYSTEM — Centralized design tokens
+   ============================================ */
+
+:root {
+  /* Base */
+  --color-bg: #000000;
+  --color-bg-elevated: #0a0a0a;
+  --color-bg-card: rgba(0, 0, 0, 0.85);
+  --color-surface: rgba(255, 255, 255, 0.03);
+
+  /* Accents — black & white */
+  --color-accent: #ffffff;
+  --color-accent-dim: rgba(255, 255, 255, 0.8);
+  --color-accent-glow: rgba(255, 255, 255, 0.15);
+  --color-secondary: #a0a0a0;
+  --color-secondary-glow: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --color-text: rgba(255, 255, 255, 0.95);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-text-dim: rgba(255, 255, 255, 0.4);
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.35);
+
+  /* Status (Discord-style) — green, red, yellow, gray */
+  --color-online: #43b581;
+  --color-idle: #faa61a;
+  --color-dnd: #f04747;
+  --color-offline: #747f8d;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Clash Display', var(--font-sans);
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+  --transition-slow: 400ms var(--ease-out);
+
+  /* Glow */
+  --glow-accent: 0 0 20px var(--color-accent-glow);
+  --glow-accent-strong: 0 0 40px var(--color-accent-glow);
+}

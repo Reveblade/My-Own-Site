@@ -1,0 +1,70 @@
+.godplay-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: var(--transition-base);
+  backdrop-filter: blur(12px);
+}
+
+.godplay-button:hover {
+  border-color: var(--color-accent-dim);
+  box-shadow: var(--glow-accent-strong);
+  transform: translateY(-2px);
+}
+
+.godplay-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.godplay-button__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.godplay-button__icon {
+  display: block;
+  object-fit: contain;
+}
+
+.godplay-button__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.godplay-button__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.godplay-button__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.godplay-button__arrow {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  transition: var(--transition-base);
+}
+
+.godplay-button:hover .godplay-button__arrow {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
