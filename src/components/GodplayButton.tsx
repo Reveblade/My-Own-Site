@@ -1,5 +1,5 @@
 import { config } from '../utils/config';
-import godplayIcon from '../icons/pfp-default.png';
+import godplayIcon from '../icons/godplay.png';
 import './GodplayButton.css';
 
 export function GodplayButton() {

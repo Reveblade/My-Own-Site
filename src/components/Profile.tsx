@@ -3,9 +3,10 @@ import twemoji from 'twemoji';
 import { useLanyard } from '../hooks/useLanyard';
 import { config } from '../utils/config';
 import type { DiscordStatus } from '../hooks/useLanyard';
+import pfpFallback from '../icons/pfp.jpg';
 import './Profile.css';
 
-const FALLBACK_AVATAR = 'https://api.dicebear.com/7.x/initials/svg?seed=Reve';
+const FALLBACK_AVATAR = pfpFallback;
 
 const LOCATION_HTML = twemoji.parse('İzmir / Türkiye 🇹🇷', {
   base: 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/',
