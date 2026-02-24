@@ -3,7 +3,7 @@ import { config } from '../utils/config';
 import './Socials.css';
 
 const socials = [
-  { id: 'github', name: 'GitHub — @Reveblade', url: config.socials.github, icon: 'github' },
+  { id: 'github', name: 'GitHub — @reveblade', url: config.socials.github, icon: 'github' },
   { id: 'instagram', name: 'Instagram — @reveblade', url: config.socials.instagram, icon: 'instagram' },
   { id: 'x', name: 'X — @reveblade_', url: config.socials.x, icon: 'x' },
   { id: 'discord', name: 'Discord — @reveblade', icon: 'discord', noLink: true },
