@@ -10,9 +10,34 @@ export function Background() {
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [videoError, setVideoError] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
+  const audioUnlockedRef = useRef(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const glowRef = useMouseGlow();
   const VOLUME = 0.05;
+
+  // Unlock audio on first user interaction (browsers block autoplay otherwise)
+  useEffect(() => {
+    const unlock = () => {
+      if (audioUnlockedRef.current) return;
+      audioUnlockedRef.current = true;
+      const audio = audioRef.current;
+      if (audio && !audioMuted) {
+        audio.volume = VOLUME;
+        audio.play().catch(() => {});
+      }
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('keydown', unlock);
+    };
+    document.addEventListener('click', unlock, { once: true });
+    document.addEventListener('touchstart', unlock, { once: true });
+    document.addEventListener('keydown', unlock, { once: true });
+    return () => {
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('keydown', unlock);
+    };
+  }, [audioMuted]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -20,7 +45,7 @@ export function Background() {
     audio.volume = VOLUME;
     if (audioMuted) {
       audio.pause();
-    } else {
+    } else if (audioUnlockedRef.current) {
       audio.play().catch(() => {});
     }
   }, [audioMuted]);
@@ -29,6 +54,7 @@ export function Background() {
     const nextMuted = !audioMuted;
     setAudioMuted(nextMuted);
     if (!nextMuted) {
+      audioUnlockedRef.current = true;
       const audio = audioRef.current;
       if (audio) {
         audio.volume = VOLUME;

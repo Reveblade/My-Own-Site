@@ -1,4 +1,5 @@
 import { Background } from './components/Background';
+import { EnterOverlay } from './components/EnterOverlay';
 import { Favicon } from './components/Favicon';
 import { Profile } from './components/Profile';
 import { Socials } from './components/Socials';
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <Favicon />
+      <EnterOverlay />
       <Background />
       <main className="app">
         <Profile />
