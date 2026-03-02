@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useMouseGlow } from '../hooks/useMouseGlow';
-import { config } from '../utils/config';
 import backgroundIcon from '../icons/background-icon.svg';
-import backgroundMusic from '../assets/Love Me.mp3';
+import arcaneVideo from '../assets/arcane.mp4';
+import arcaneMusic from '../assets/arcane.MP3';
 import './Background.css';
 
 export function Background() {
@@ -12,10 +12,11 @@ export function Background() {
   const [audioMuted, setAudioMuted] = useState(false);
   const audioUnlockedRef = useRef(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const glowRef = useMouseGlow();
   const VOLUME = 0.05;
 
-  // Unlock audio on first user interaction (browsers block autoplay otherwise)
+  // Unlock audio and video on first user interaction (browsers block autoplay otherwise)
   useEffect(() => {
     const unlock = () => {
       if (audioUnlockedRef.current) return;
@@ -24,6 +25,10 @@ export function Background() {
       if (audio && !audioMuted) {
         audio.volume = VOLUME;
         audio.play().catch(() => {});
+      }
+      const video = videoRef.current;
+      if (video && videoEnabled && !videoError) {
+        video.play().catch(() => {});
       }
       document.removeEventListener('click', unlock);
       document.removeEventListener('touchstart', unlock);
@@ -37,7 +42,7 @@ export function Background() {
       document.removeEventListener('touchstart', unlock);
       document.removeEventListener('keydown', unlock);
     };
-  }, [audioMuted]);
+  }, [audioMuted, videoEnabled, videoError]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -49,6 +54,21 @@ export function Background() {
       audio.play().catch(() => {});
     }
   }, [audioMuted]);
+
+  // Play/pause video when toggled (only after first user interaction)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !audioUnlockedRef.current) return;
+    if (videoEnabled && !videoError) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [videoEnabled, videoError]);
+
+  const handleVideoToggle = () => {
+    setVideoEnabled((v) => !v);
+  };
 
   const handleAudioToggle = () => {
     const nextMuted = !audioMuted;
@@ -63,29 +83,30 @@ export function Background() {
     }
   };
 
+  const showVideo = videoEnabled && !videoError;
+
   return (
     <div className="background" ref={glowRef}>
-      <div className="background__layer">
-        {/* Video or static image */}
-        {videoEnabled && !videoError ? (
-          <video
-            className="background__video"
-            src={config.assets.backgroundVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            onError={() => setVideoError(true)}
-          />
-        ) : (
-          <div
-            className="background__image"
-            style={{
-              backgroundImage: `url(${config.assets.backgroundImage})`,
-              backgroundColor: 'var(--color-bg)',
-            }}
-          />
-        )}
+      <div className={`background__layer ${!showVideo ? 'background__layer--stopped' : ''}`}>
+        {/* Video (muted) or black background when stopped */}
+        <video
+          ref={videoRef}
+          className="background__video"
+          src={arcaneVideo}
+          muted
+          loop
+          playsInline
+          onError={() => setVideoError(true)}
+          style={{ opacity: showVideo ? 1 : 0 }}
+        />
+        <div
+          className="background__fallback"
+          style={{ opacity: showVideo ? 0 : 1 }}
+          aria-hidden
+        />
+
+        {/* Black transparent overlay for content visibility */}
+        <div className="background__overlay" />
 
         {/* Gradient overlay */}
         <div className="background__gradient" />
@@ -101,8 +122,8 @@ export function Background() {
         <div className="background__glow" aria-hidden />
       </div>
 
-      {/* Background music (hidden) */}
-      <audio ref={audioRef} src={backgroundMusic} loop preload="auto" />
+      {/* Background music - arcane.MP3 (video stays muted) */}
+      <audio ref={audioRef} src={arcaneMusic} loop preload="auto" />
 
       {/* Control buttons - portal to body so they're above all content */}
       {typeof document !== 'undefined' &&
@@ -111,9 +132,9 @@ export function Background() {
             <button
               type="button"
               className="background__control"
-              onClick={() => setVideoEnabled((v) => !v)}
-              title={videoEnabled ? 'Switch to image' : 'Switch to video'}
-              aria-label={videoEnabled ? 'Switch to image' : 'Switch to video'}
+              onClick={handleVideoToggle}
+              title={videoEnabled ? 'Stop video' : 'Play video'}
+              aria-label={videoEnabled ? 'Stop video' : 'Play video'}
             >
               <img src={backgroundIcon} alt="" width={20} height={20} className="background__control-icon" />
             </button>
