@@ -16,18 +16,18 @@ export function Background() {
   const glowRef = useMouseGlow();
   const VOLUME = 0.05;
 
-  // Unlock audio and video on first user interaction (browsers block autoplay otherwise)
+  // Unlock and start both media on first user interaction - they never pause, only visibility/volume change
   useEffect(() => {
     const unlock = () => {
       if (audioUnlockedRef.current) return;
       audioUnlockedRef.current = true;
       const audio = audioRef.current;
-      if (audio && !audioMuted) {
-        audio.volume = VOLUME;
+      const video = videoRef.current;
+      if (audio) {
+        audio.volume = audioMuted ? 0 : VOLUME;
         audio.play().catch(() => {});
       }
-      const video = videoRef.current;
-      if (video && videoEnabled && !videoError) {
+      if (video && !videoError) {
         video.play().catch(() => {});
       }
       document.removeEventListener('click', unlock);
@@ -42,45 +42,21 @@ export function Background() {
       document.removeEventListener('touchstart', unlock);
       document.removeEventListener('keydown', unlock);
     };
-  }, [audioMuted, videoEnabled, videoError]);
+  }, [audioMuted, videoError]);
 
+  // Audio: never pause, only toggle volume (keeps sync with video)
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = VOLUME;
-    if (audioMuted) {
-      audio.pause();
-    } else if (audioUnlockedRef.current) {
-      audio.play().catch(() => {});
-    }
+    if (!audio || !audioUnlockedRef.current) return;
+    audio.volume = audioMuted ? 0 : VOLUME;
   }, [audioMuted]);
-
-  // Play/pause video when toggled (only after first user interaction)
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !audioUnlockedRef.current) return;
-    if (videoEnabled && !videoError) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  }, [videoEnabled, videoError]);
 
   const handleVideoToggle = () => {
     setVideoEnabled((v) => !v);
   };
 
   const handleAudioToggle = () => {
-    const nextMuted = !audioMuted;
-    setAudioMuted(nextMuted);
-    if (!nextMuted) {
-      audioUnlockedRef.current = true;
-      const audio = audioRef.current;
-      if (audio) {
-        audio.volume = VOLUME;
-        audio.play().catch(() => {});
-      }
-    }
+    setAudioMuted((m) => !m);
   };
 
   const showVideo = videoEnabled && !videoError;
